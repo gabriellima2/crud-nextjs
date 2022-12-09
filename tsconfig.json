@@ -18,6 +18,8 @@
 		"paths": {
 			"@components/*": ["./src/components/*"],
 			"@styles/*": ["./src/styles/*"],
+			"@global-types/*": ["./src/@types/*"],
+			"@yup/*": ["./src/yup/*"]
 		}
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
