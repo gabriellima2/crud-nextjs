@@ -7,7 +7,7 @@ import type { Input } from "@global-types/Input";
 
 export interface FieldProps<TField extends FieldValues>
 	extends UseControllerProps<TField>,
-		Input<TField> {}
+		Omit<Input<TField>, "defaultValue"> {}
 
 export const Field = <TField extends {}>({
 	label,

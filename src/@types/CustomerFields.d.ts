@@ -1,4 +1,7 @@
-import type { InferType } from "react-hook-form";
-import { customerSchema } from "@yup/customer-schema";
+import type { Input } from "./Input";
 
-export type CustomerFields = InferType<typeof customerSchema>;
+export interface CustomerFields {
+	name: Input;
+	email: Input;
+	zipCode: Input;
+}

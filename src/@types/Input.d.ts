@@ -6,8 +6,8 @@ type DefaultAttr = Pick<
 	"placeholder" | "className" | "type" | "id"
 >;
 
-export interface Input<TField> extends DefaultAttr {
+export interface Input<TField = {}> extends DefaultAttr {
 	label: string;
 	name: Path<TField>;
-	defaultValue?: PathValue<TField, Path<TField>>;
+	defaultValue: PathValue<TField, Path<TField>>;
 }
