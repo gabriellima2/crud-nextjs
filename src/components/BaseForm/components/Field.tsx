@@ -2,12 +2,14 @@ import { useController, UseControllerProps } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 
 import { Error } from "@components/Error";
+import { Label } from "@components/Label";
+import { Input } from "@components/Input";
 
-import type { Input } from "@global-types/Input";
+import type { Input as InputType } from "@global-types/Input";
 
 export interface FieldProps<TField extends FieldValues>
 	extends UseControllerProps<TField>,
-		Omit<Input<TField>, "defaultValue"> {}
+		Omit<InputType<TField>, "defaultValue"> {}
 
 export const Field = <TField extends {}>({
 	label,
@@ -22,17 +24,18 @@ export const Field = <TField extends {}>({
 	const hasError = !!fieldState.error;
 
 	return (
-		<div>
-			<label>
+		<div className="flex flex-col gap-1 md:gap-2">
+			<Label className="flex flex-col gap-1 md:gap-0">
 				{label}
-				<input
+				<Input
 					type={type}
 					id={id}
 					placeholder={placeholder}
 					className={className}
 					{...field}
 				/>
-			</label>
+			</Label>
+
 			{hasError && <Error message={fieldState.error?.message as string} />}
 		</div>
 	);

@@ -32,10 +32,13 @@ export const CustomerForm = () => {
 
 	return (
 		<BaseForm<CustomerFields>
-			fields={fields}
+			fields={{
+				items: fields,
+				className: "w-full flex flex-col md:flex-row gap-4 mb-6",
+			}}
 			onSubmit={handleSubmit}
 			validationSchema={customerSchema}
-			button={{ children: "Adicionar" }}
+			button={{ children: "Adicionar", className: "w-full h-fit" }}
 		/>
 	);
 };
