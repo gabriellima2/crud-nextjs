@@ -19,9 +19,13 @@
 			"@components/*": ["./src/components/*"],
 			"@styles/*": ["./src/styles/*"],
 			"@global-types/*": ["./src/@types/*"],
-			"@yup/*": ["./src/yup/*"]
+			"@yup/*": ["./src/yup/*"],
+			"@repositories/*": ["./src/repositories/*"],
+			"@domain/*": ["./src/domain/*"],
+			"@controllers/*": ["./src/controllers/*"],
+			"@use-cases/*": ["./src/useCases/*"]
 		}
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/useCases/customer-use-cases"],
   "exclude": ["node_modules"]
 }
