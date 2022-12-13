@@ -13,7 +13,7 @@ export class CustomerRepository implements ICustomerRepository {
 
 		return [
 			{
-				id: 0,
+				id: "0",
 				name: "",
 				email: "",
 				zipCode: "",
@@ -22,11 +22,11 @@ export class CustomerRepository implements ICustomerRepository {
 		];
 	};
 
-	create = async (customer: Customer) => {
+	create = async (customer: Omit<Customer, "id">) => {
 		console.log(customer);
 	};
 
-	delete = (id: number) => {
+	delete = (id: string) => {
 		console.log(id);
 	};
 
@@ -34,11 +34,11 @@ export class CustomerRepository implements ICustomerRepository {
 		console.log(customer);
 	};
 
-	findByID = (id: number) => {
+	findByID = (id: string) => {
 		console.log(id);
 
 		return {
-			id: 0,
+			id: "0",
 			name: "",
 			email: "",
 			zipCode: "",
@@ -47,10 +47,8 @@ export class CustomerRepository implements ICustomerRepository {
 	};
 
 	findByEmail = async (email: string) => {
-		console.log(email);
-
 		return {
-			id: 0,
+			id: "0",
 			name: "",
 			email: "",
 			zipCode: "",

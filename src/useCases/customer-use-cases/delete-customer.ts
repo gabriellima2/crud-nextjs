@@ -7,7 +7,7 @@ export class DeleteCustomer {
 		this.repository = repository;
 	}
 
-	execute = (id: number) => {
+	execute = (id: string) => {
 		this.repository.delete(id);
 	};
 }

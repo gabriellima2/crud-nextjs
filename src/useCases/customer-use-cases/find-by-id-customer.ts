@@ -7,7 +7,7 @@ export class FindByIDCustomer {
 		this.repository = repository;
 	}
 
-	execute = (id: number) => {
+	execute = (id: string) => {
 		const customer = this.repository.findByID(id);
 
 		if (!customer) throw new Error("Cliente não encontrado");

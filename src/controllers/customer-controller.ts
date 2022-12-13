@@ -14,12 +14,16 @@ import {
 	FindByIDCustomer,
 } from "@use-cases/customer-use-cases";
 
+interface CreateCustomerApiRequest extends NextApiRequest {
+	body: { customer: Omit<Customer, "id"> };
+}
+
 interface CustomerApiRequest extends NextApiRequest {
 	body: { customer: Customer };
 }
 
 interface SpecificCustomerApiRequest extends NextApiRequest {
-	body: { id: number };
+	body: { id: string };
 }
 
 interface CustomerEmailApiRequest extends NextApiRequest {
@@ -45,7 +49,7 @@ export class CustomerController {
 		}
 	};
 
-	create = async (req: CustomerApiRequest, res: NextApiResponse) => {
+	create = async (req: CreateCustomerApiRequest, res: NextApiResponse) => {
 		const { customer } = req.body;
 		const createCustomerCase = new CreateCustomer(this.repository);
 
