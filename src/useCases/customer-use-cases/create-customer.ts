@@ -1,5 +1,7 @@
-import { Customer } from "src/domain/customer";
-import { ICustomerRepository } from "src/repositories/icustomer-repository";
+import { ICustomerRepository } from "@repositories/icustomer-repository";
+import { Customer } from "@domain/customer";
+
+import { customerSchema } from "@yup/customer-schema";
 
 export class CreateCustomer {
 	private repository: ICustomerRepository;
@@ -8,11 +10,13 @@ export class CreateCustomer {
 		this.repository = repository;
 	}
 
-	execute = (customer: Customer) => {
-		if (!customer.email) return this.repository.create(customer);
+	execute = async (customer: Customer) => {
+		const customerDataIsValid = await customerSchema.isValid(customer);
+		if (!customerDataIsValid) throw new Error("Dados inválidos");
 
-		const emailAlreadyExists = this.repository.findByEmail(customer.email);
-
+		const emailAlreadyExists = await this.repository.findByEmail(
+			customer.email
+		);
 		if (emailAlreadyExists) throw new Error("Email já existe!");
 
 		this.repository.create(customer);

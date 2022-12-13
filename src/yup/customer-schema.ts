@@ -14,3 +14,5 @@ export const customerSchema = yup.object().shape({
 		)
 		.required("Preencha o campo CEP"),
 });
+
+export const customerEmailSchema = customerSchema.pick(["email"]);

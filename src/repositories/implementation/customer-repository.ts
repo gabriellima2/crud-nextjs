@@ -22,7 +22,7 @@ export class CustomerRepository implements ICustomerRepository {
 		];
 	};
 
-	create = (customer: Customer) => {
+	create = async (customer: Customer) => {
 		console.log(customer);
 	};
 
@@ -30,7 +30,7 @@ export class CustomerRepository implements ICustomerRepository {
 		console.log(id);
 	};
 
-	edit = (customer: Customer) => {
+	edit = async (customer: Customer) => {
 		console.log(customer);
 	};
 
@@ -46,7 +46,7 @@ export class CustomerRepository implements ICustomerRepository {
 		};
 	};
 
-	findByEmail = (email: string) => {
+	findByEmail = async (email: string) => {
 		console.log(email);
 
 		return {

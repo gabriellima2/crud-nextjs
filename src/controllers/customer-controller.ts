@@ -45,12 +45,12 @@ export class CustomerController {
 		}
 	};
 
-	create = (req: CustomerApiRequest, res: NextApiResponse) => {
+	create = async (req: CustomerApiRequest, res: NextApiResponse) => {
 		const { customer } = req.body;
 		const createCustomerCase = new CreateCustomer(this.repository);
 
 		try {
-			createCustomerCase.execute(customer);
+			await createCustomerCase.execute(customer);
 
 			res.status(200).json("Cliente criado com sucesso!");
 		} catch (err) {
@@ -71,12 +71,12 @@ export class CustomerController {
 		}
 	};
 
-	edit = (req: CustomerApiRequest, res: NextApiResponse) => {
+	edit = async (req: CustomerApiRequest, res: NextApiResponse) => {
 		const { customer } = req.body;
 		const editCustomerCase = new EditCustomer(this.repository);
 
 		try {
-			editCustomerCase.execute(customer);
+			await editCustomerCase.execute(customer);
 
 			res.status(200).json("Cliente editado com sucesso!");
 		} catch (err) {
@@ -100,7 +100,7 @@ export class CustomerController {
 		}
 	};
 
-	findByEmail = (
+	findByEmail = async (
 		req: CustomerEmailApiRequest,
 		res: NextApiResponse<Customer | {}>
 	) => {
@@ -108,9 +108,9 @@ export class CustomerController {
 		const findByEmailCustomerCase = new FindByEmailCustomer(this.repository);
 
 		try {
-			const customer = findByEmailCustomerCase.execute(email);
+			const customer = await findByEmailCustomerCase.execute(email);
 
-			res.status(200).json(customer);
+			res.status(200).json(customer as Customer);
 		} catch (err) {
 			res.status(404).send(err || "Erro, email não encontrado");
 		}
