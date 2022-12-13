@@ -41,7 +41,7 @@ export class CustomerController {
 
 			res.status(200).json(customers);
 		} catch (err) {
-			res.status(404).send(err || "Erro, cliente não encontrado");
+			res.status(404).send(err || "Erro, nenhum cliente encontrado");
 		}
 	};
 
