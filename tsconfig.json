@@ -23,7 +23,8 @@
 			"@repositories/*": ["./src/repositories/*"],
 			"@domain/*": ["./src/domain/*"],
 			"@controllers/*": ["./src/controllers/*"],
-			"@use-cases/*": ["./src/useCases/*"]
+			"@use-cases/*": ["./src/useCases/*"],
+			"@services/*": ["./src/services/*"]
 		}
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/useCases/customer-use-cases"],
