@@ -8,18 +8,21 @@ export default async function handler(
 	const customerController = new CustomerController();
 
 	if (req.method === "GET") {
-		if (req.body.id >= 0) return customerController.findByID(req, res);
+		if (req.body.id >= 0) return await customerController.findByID(req, res);
 
-		if (req.body.email) return customerController.findByEmail(req, res);
+		if (req.body.email) return await customerController.findByEmail(req, res);
 
-		return customerController.loadAll(req, res);
+		if (!req.body.email && !req.body.id)
+			return await customerController.loadAll(req, res);
+
+		res.status(404).send("Valor não encontrado!");
 	}
 
 	if (req.method === "POST") return await customerController.create(req, res);
 
-	if (req.method === "DELETE") return customerController.delete(req, res);
+	if (req.method === "DELETE") return await customerController.delete(req, res);
 
-	if (req.method === "PATCH") return customerController.edit(req, res);
+	if (req.method === "PATCH") return await customerController.edit(req, res);
 
 	res.status(405).send("Método não suportado!");
 }

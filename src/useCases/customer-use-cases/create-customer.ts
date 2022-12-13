@@ -1,5 +1,3 @@
-import { v4 as uuid } from "uuid";
-
 import { ICustomerRepository } from "@repositories/icustomer-repository";
 import { Customer } from "@domain/customer";
 
@@ -21,6 +19,6 @@ export class CreateCustomer {
 		);
 		if (emailAlreadyExists) throw new Error("Email já existe!");
 
-		this.repository.create({ ...customer, id: uuid() });
+		await this.repository.create(customer);
 	};
 }

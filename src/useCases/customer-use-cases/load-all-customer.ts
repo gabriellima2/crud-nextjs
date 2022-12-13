@@ -7,8 +7,8 @@ export class LoadAllCustomer {
 		this.repository = repository;
 	}
 
-	execute = () => {
-		const customers = this.repository.loadAll();
+	execute = async () => {
+		const customers = await this.repository.loadAll();
 
 		if (customers.length === 0) throw new Error("Nenhum cliente encontrado");
 

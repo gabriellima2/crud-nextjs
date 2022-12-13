@@ -7,7 +7,7 @@ export class DeleteCustomer {
 		this.repository = repository;
 	}
 
-	execute = (id: string) => {
-		this.repository.delete(id);
+	execute = async (id: number) => {
+		await this.repository.delete(id);
 	};
 }

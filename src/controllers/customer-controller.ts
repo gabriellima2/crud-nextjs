@@ -23,7 +23,7 @@ interface CustomerApiRequest extends NextApiRequest {
 }
 
 interface SpecificCustomerApiRequest extends NextApiRequest {
-	body: { id: string };
+	body: { id: number };
 }
 
 interface CustomerEmailApiRequest extends NextApiRequest {
@@ -37,15 +37,18 @@ export class CustomerController {
 		this.repository = new CustomerRepository();
 	}
 
-	loadAll = (req: NextApiRequest, res: NextApiResponse<Customer[] | {}>) => {
+	loadAll = async (
+		req: NextApiRequest,
+		res: NextApiResponse<Customer[] | {}>
+	) => {
 		const loadAllCustomerCase = new LoadAllCustomer(this.repository);
 
 		try {
-			const customers = loadAllCustomerCase.execute();
+			const customers = await loadAllCustomerCase.execute();
 
 			res.status(200).json(customers);
 		} catch (err) {
-			res.status(404).send(err || "Erro, nenhum cliente encontrado");
+			res.status(404).send("Erro, nenhum cliente encontrado");
 		}
 	};
 
@@ -58,20 +61,20 @@ export class CustomerController {
 
 			res.status(200).json("Cliente criado com sucesso!");
 		} catch (err) {
-			res.status(404).send(err || "Erro, não foi possivel criar o cliente");
+			res.status(404).send("Erro, não foi possivel criar o cliente");
 		}
 	};
 
-	delete = (req: SpecificCustomerApiRequest, res: NextApiResponse) => {
+	delete = async (req: SpecificCustomerApiRequest, res: NextApiResponse) => {
 		const { id } = req.body;
 		const deleteCustomerCase = new DeleteCustomer(this.repository);
 
 		try {
-			deleteCustomerCase.execute(id);
+			await deleteCustomerCase.execute(id);
 
 			res.status(200).json("Cliente deletado com sucesso!");
 		} catch (err) {
-			res.status(404).send(err || "Erro, não foi possível deletar o cliente");
+			res.status(404).send("Erro, não foi possível deletar o cliente");
 		}
 	};
 
@@ -84,11 +87,11 @@ export class CustomerController {
 
 			res.status(200).json("Cliente editado com sucesso!");
 		} catch (err) {
-			res.status(404).send(err || "Erro, não foi possível editar o cliente");
+			res.status(404).send("Erro, não foi possível editar o cliente");
 		}
 	};
 
-	findByID = (
+	findByID = async (
 		req: SpecificCustomerApiRequest,
 		res: NextApiResponse<Customer | {}>
 	) => {
@@ -96,11 +99,11 @@ export class CustomerController {
 		const findByIDCustomerCase = new FindByIDCustomer(this.repository);
 
 		try {
-			const customer = findByIDCustomerCase.execute(id);
+			const customer = await findByIDCustomerCase.execute(id);
 
 			res.status(200).json(customer);
 		} catch (err) {
-			res.status(404).send(err || "Erro, cliente não encontrado");
+			res.status(404).send("Erro, cliente não encontrado");
 		}
 	};
 
@@ -116,7 +119,7 @@ export class CustomerController {
 
 			res.status(200).json(customer as Customer);
 		} catch (err) {
-			res.status(404).send(err || "Erro, email não encontrado");
+			res.status(404).send("Erro, email não encontrado");
 		}
 	};
 }

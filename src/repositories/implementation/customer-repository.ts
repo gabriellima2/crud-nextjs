@@ -1,58 +1,75 @@
 import { Customer } from "@domain/customer";
 import { ICustomerRepository } from "../icustomer-repository";
 
+import { prismaClient } from "@services/prisma-client";
+
 export class CustomerRepository implements ICustomerRepository {
-	private customers: Customer[] | null;
+	private repository: typeof prismaClient;
 
 	constructor() {
-		this.customers = null;
+		this.repository = prismaClient;
 	}
 
-	loadAll = () => {
-		console.log("Todos");
-
-		return [
-			{
-				id: "0",
-				name: "",
-				email: "",
-				zipCode: "",
-				address: "",
-			},
-		];
+	loadAll = async () => {
+		try {
+			return await this.repository.customer.findMany();
+		} catch (err) {
+			throw new Error();
+		} finally {
+			this.repository.$disconnect();
+		}
 	};
 
 	create = async (customer: Omit<Customer, "id">) => {
-		console.log(customer);
+		try {
+			await this.repository.customer.create({ data: customer });
+		} catch (err) {
+			throw new Error();
+		} finally {
+			this.repository.$disconnect();
+		}
 	};
 
-	delete = (id: string) => {
-		console.log(id);
+	delete = async (id: number) => {
+		try {
+			await this.repository.customer.delete({ where: { id } });
+		} catch (err) {
+			throw new Error();
+		} finally {
+			this.repository.$disconnect();
+		}
 	};
 
-	edit = async (customer: Customer) => {
-		console.log(customer);
+	edit = async ({ id, ...customer }: Customer) => {
+		try {
+			await this.repository.customer.update({
+				where: { id },
+				data: customer,
+			});
+		} catch (err) {
+			throw new Error();
+		} finally {
+			this.repository.$disconnect();
+		}
 	};
 
-	findByID = (id: string) => {
-		console.log(id);
-
-		return {
-			id: "0",
-			name: "",
-			email: "",
-			zipCode: "",
-			address: "",
-		};
+	findByID = async (id: number) => {
+		try {
+			return await this.repository.customer.findUnique({ where: { id } });
+		} catch (err) {
+			throw new Error();
+		} finally {
+			this.repository.$disconnect();
+		}
 	};
 
 	findByEmail = async (email: string) => {
-		return {
-			id: "0",
-			name: "",
-			email: "",
-			zipCode: "",
-			address: "",
-		};
+		try {
+			return await this.repository.customer.findUnique({ where: { email } });
+		} catch (err) {
+			throw new Error();
+		} finally {
+			this.repository.$disconnect();
+		}
 	};
 }

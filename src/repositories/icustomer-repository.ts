@@ -1,10 +1,10 @@
 import { Customer } from "@domain/customer";
 
 export interface ICustomerRepository {
-	create: (customer: Customer) => Promise<void>;
-	findByID: (id: string) => Customer | null;
-	findByEmail: (email: string) => Promise<Customer | null>;
-	loadAll: () => Customer[];
-	delete: (id: string) => void;
+	create: (customer: Omit<Customer, "id">) => Promise<void>;
+	findByID: (id: number) => Promise<Customer | null | undefined>;
+	findByEmail: (email: string) => Promise<Customer | null | undefined>;
+	loadAll: () => Promise<Customer[]>;
+	delete: (id: number) => Promise<void>;
 	edit: (customer: Customer) => Promise<void>;
 }

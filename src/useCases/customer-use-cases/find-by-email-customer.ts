@@ -12,7 +12,7 @@ export class FindByEmailCustomer {
 		const emailIsValid = await customerEmailSchema.isValid({ email });
 		if (!emailIsValid) throw new Error("Email inválido");
 
-		const customer = this.repository.findByEmail(email);
+		const customer = await this.repository.findByEmail(email);
 		if (!customer) throw new Error("Email não encontrado");
 
 		return customer;
