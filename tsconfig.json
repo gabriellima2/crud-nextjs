@@ -24,7 +24,8 @@
 			"@domain/*": ["./src/domain/*"],
 			"@controllers/*": ["./src/controllers/*"],
 			"@use-cases/*": ["./src/useCases/*"],
-			"@services/*": ["./src/services/*"]
+			"@services/*": ["./src/services/*"],
+			"@constants/*": ["./src/constants/*"]
 		}
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/useCases/customer-use-cases"],
