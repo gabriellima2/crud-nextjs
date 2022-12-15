@@ -4,7 +4,7 @@ import type { Customer } from "@domain/customer";
 class CustomerServices {
 	public async getCustomers(): Promise<Customer[] | []> {
 		try {
-			const response = await fetch(`${BASE_URL}/api/customer`, {
+			const response = await fetch(`${BASE_URL}/api/customers`, {
 				method: "GET",
 			});
 

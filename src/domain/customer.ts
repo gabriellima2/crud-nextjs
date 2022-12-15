@@ -4,3 +4,5 @@ export interface Customer {
 	email: string;
 	zipCode: string;
 }
+
+export interface DBCustomer extends Omit<Customer, "id"> {}

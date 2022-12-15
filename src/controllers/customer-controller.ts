@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 
 import { Customer } from "@domain/customer";
 
@@ -17,11 +17,11 @@ import {
 } from "@use-cases/customer-use-cases";
 
 import type {
-	CreateCustomerApiRequest,
-	CustomerApiRequest,
-	CustomerEmailApiRequest,
-	SpecificCustomerApiRequest,
-} from "./request-params";
+	CreateCustomerRequest,
+	FindByEmailRequest,
+	FindByIDRequest,
+	HandleCustomerRequest,
+} from "@protocols/customer-request-params";
 
 export class CustomerController {
 	private repository: ICustomerRepository;
@@ -30,10 +30,7 @@ export class CustomerController {
 		this.repository = new CustomerRepository();
 	}
 
-	loadAll = async (
-		req: NextApiRequest,
-		res: NextApiResponse<Customer[] | {}>
-	) => {
+	loadAll = async (_: unknown, res: NextApiResponse<Customer[] | {}>) => {
 		const loadAllCustomerCase = new LoadAllCustomer(this.repository);
 
 		try {
@@ -45,8 +42,8 @@ export class CustomerController {
 		}
 	};
 
-	create = async (req: CreateCustomerApiRequest, res: NextApiResponse) => {
-		const { customer } = req.body;
+	create = async (req: CreateCustomerRequest, res: NextApiResponse) => {
+		const customer = req.body;
 		const createCustomerCase = new CreateCustomer(this.repository);
 
 		try {
@@ -58,12 +55,12 @@ export class CustomerController {
 		}
 	};
 
-	delete = async (req: SpecificCustomerApiRequest, res: NextApiResponse) => {
-		const { id } = req.body;
+	delete = async (req: HandleCustomerRequest, res: NextApiResponse) => {
+		const { id } = req.query;
 		const deleteCustomerCase = new DeleteCustomer(this.repository);
 
 		try {
-			await deleteCustomerCase.execute(id);
+			await deleteCustomerCase.execute(Number(id));
 
 			res.status(200).json("Cliente deletado com sucesso!");
 		} catch (err) {
@@ -71,12 +68,13 @@ export class CustomerController {
 		}
 	};
 
-	edit = async (req: CustomerApiRequest, res: NextApiResponse) => {
-		const { customer } = req.body;
+	edit = async (req: HandleCustomerRequest, res: NextApiResponse) => {
+		const { id } = req.query;
+		const customer = req.body;
 		const editCustomerCase = new EditCustomer(this.repository);
 
 		try {
-			await editCustomerCase.execute(customer);
+			await editCustomerCase.execute(Number(id), customer);
 
 			res.status(200).json("Cliente editado com sucesso!");
 		} catch (err) {
@@ -85,14 +83,14 @@ export class CustomerController {
 	};
 
 	findByID = async (
-		req: SpecificCustomerApiRequest,
+		req: FindByIDRequest,
 		res: NextApiResponse<Customer | {}>
 	) => {
-		const { id } = req.body;
+		const { id } = req.query;
 		const findByIDCustomerCase = new FindByIDCustomer(this.repository);
 
 		try {
-			const customer = await findByIDCustomerCase.execute(id);
+			const customer = await findByIDCustomerCase.execute(Number(id));
 
 			res.status(200).json(customer);
 		} catch (err) {
@@ -101,7 +99,7 @@ export class CustomerController {
 	};
 
 	findByEmail = async (
-		req: CustomerEmailApiRequest,
+		req: FindByEmailRequest,
 		res: NextApiResponse<Customer | {}>
 	) => {
 		const { email } = req.body;

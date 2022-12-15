@@ -1,7 +1,7 @@
-import type { ICustomerRepository } from "@repositories/customer-repository";
-import { Customer } from "@domain/customer";
-
 import { customerSchema } from "@yup/customer-schema";
+
+import type { ICustomerRepository } from "@repositories/customer-repository";
+import type { Customer } from "@domain/customer";
 
 export class CreateCustomer {
 	private repository: ICustomerRepository;

@@ -1,7 +1,7 @@
-import { Customer } from "@domain/customer";
-import type { ICustomerRepository } from "./icustomer-repository";
-
 import { prismaClient } from "@services/prisma-client";
+
+import type { Customer } from "@domain/customer";
+import type { ICustomerRepository } from "./icustomer-repository";
 
 export class CustomerRepository implements ICustomerRepository {
 	private repository: typeof prismaClient;
@@ -40,7 +40,7 @@ export class CustomerRepository implements ICustomerRepository {
 		}
 	};
 
-	edit = async ({ id, ...customer }: Customer) => {
+	edit = async (id: number, customer: Omit<Customer, "id">) => {
 		try {
 			await this.repository.customer.update({
 				where: { id },

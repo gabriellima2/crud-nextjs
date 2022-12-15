@@ -1,7 +1,7 @@
-import type { ICustomerRepository } from "@repositories/customer-repository";
-import { Customer } from "@domain/customer";
-
 import { customerSchema } from "@yup/customer-schema";
+
+import type { ICustomerRepository } from "@repositories/customer-repository";
+import type { DBCustomer } from "@domain/customer";
 
 export class EditCustomer {
 	private repository: ICustomerRepository;
@@ -10,17 +10,14 @@ export class EditCustomer {
 		this.repository = repository;
 	}
 
-	execute = async (customer: Customer) => {
-		const customerExists = await this.repository.findByID(customer.id);
-		if (!customerExists) throw new Error("Cliente não existe");
-
+	execute = async (id: number, customer: DBCustomer) => {
 		const customerDataIsValid = await customerSchema.isValid(customer);
 		if (!customerDataIsValid) throw new Error("Dados inválidos");
 
-		const emailExists = await this.repository.findByEmail(customer.email);
-		if (emailExists && emailExists.id !== customerExists.id)
+		const customerEmail = await this.repository.findByEmail(customer.email);
+		if (customerEmail && customerEmail.id !== id)
 			throw new Error("Email já existe!");
 
-		this.repository.edit(customer);
+		this.repository.edit(id, customer);
 	};
 }

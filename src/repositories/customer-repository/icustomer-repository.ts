@@ -1,10 +1,10 @@
-import type { Customer } from "@domain/customer";
+import type { Customer, DBCustomer } from "@domain/customer";
 
 export interface ICustomerRepository {
-	create: (customer: Omit<Customer, "id">) => Promise<void>;
+	create: (customer: DBCustomer) => Promise<void>;
 	findByID: (id: number) => Promise<Customer | null | undefined>;
 	findByEmail: (email: string) => Promise<Customer | null | undefined>;
 	loadAll: () => Promise<Customer[]>;
 	delete: (id: number) => Promise<void>;
-	edit: (customer: Customer) => Promise<void>;
+	edit: (id: number, customer: DBCustomer) => Promise<void>;
 }
