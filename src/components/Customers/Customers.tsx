@@ -1,8 +1,7 @@
-import { Suspense } from "react";
+import React from "react";
 
-import { Loading } from "@components/Loading";
 import { Error } from "@components/Error";
-import { Customer } from "./components";
+import { Table } from "./components";
 
 import type { Customer as ICustomer } from "@domain/customer";
 
@@ -14,16 +13,12 @@ export const Customers = ({ customers }: CustomersProps) => {
 	const hasNoRegisteredCustomers = customers.length === 0;
 
 	return (
-		<Suspense fallback={<Loading />}>
+		<>
 			{hasNoRegisteredCustomers ? (
 				<Error message="Nenhum cliente registrado encontrado" />
 			) : (
-				<ul>
-					{customers.map((customer) => (
-						<Customer key={customer.id} {...customer} />
-					))}
-				</ul>
+				<Table customers={customers} />
 			)}
-		</Suspense>
+		</>
 	);
 };

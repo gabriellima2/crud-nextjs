@@ -13,10 +13,13 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = ({ customers }) => {
 	return (
 		<div className="p-4 flex flex-col items-center">
-			<main className="w-full md:max-w-[1200px] flex flex-col items-center">
+			<main className="w-full md:max-w-[800px] flex flex-col items-center">
 				<Header />
 
-				<section>
+				<section className="w-full mt-12 flex flex-col gap-2 md:gap-4">
+					<h2 className="font-medium text-base md:text-lg">
+						Detalhes dos Clientes
+					</h2>
 					<Customers customers={customers} />
 				</section>
 			</main>

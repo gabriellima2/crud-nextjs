@@ -1,1 +1,1 @@
-export { Customer } from "./Customer";
+export { Table } from "./Table";
