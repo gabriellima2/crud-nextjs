@@ -14,7 +14,7 @@ export class CustomerRepository implements ICustomerRepository {
 		try {
 			return await this.repository.customer.findMany();
 		} catch (err) {
-			throw new Error();
+			throw new Error((err as Error).message);
 		} finally {
 			this.repository.$disconnect();
 		}
@@ -24,7 +24,7 @@ export class CustomerRepository implements ICustomerRepository {
 		try {
 			await this.repository.customer.create({ data: customer });
 		} catch (err) {
-			throw new Error();
+			throw new Error((err as Error).message);
 		} finally {
 			this.repository.$disconnect();
 		}
@@ -34,7 +34,7 @@ export class CustomerRepository implements ICustomerRepository {
 		try {
 			await this.repository.customer.delete({ where: { id } });
 		} catch (err) {
-			throw new Error();
+			throw new Error((err as Error).message);
 		} finally {
 			this.repository.$disconnect();
 		}
@@ -47,7 +47,7 @@ export class CustomerRepository implements ICustomerRepository {
 				data: customer,
 			});
 		} catch (err) {
-			throw new Error();
+			throw new Error((err as Error).message);
 		} finally {
 			this.repository.$disconnect();
 		}
@@ -57,7 +57,7 @@ export class CustomerRepository implements ICustomerRepository {
 		try {
 			return await this.repository.customer.findUnique({ where: { id } });
 		} catch (err) {
-			throw new Error();
+			throw new Error((err as Error).message);
 		} finally {
 			this.repository.$disconnect();
 		}
@@ -67,7 +67,7 @@ export class CustomerRepository implements ICustomerRepository {
 		try {
 			return await this.repository.customer.findUnique({ where: { email } });
 		} catch (err) {
-			throw new Error();
+			throw new Error((err as Error).message);
 		} finally {
 			this.repository.$disconnect();
 		}

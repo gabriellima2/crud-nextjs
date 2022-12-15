@@ -38,7 +38,7 @@ export class CustomerController {
 
 			res.status(200).json(customers);
 		} catch (err) {
-			res.status(404).send("Erro, nenhum cliente encontrado");
+			res.status(404).json((err as Error).message);
 		}
 	};
 
@@ -51,7 +51,7 @@ export class CustomerController {
 
 			res.status(200).json("Cliente criado com sucesso!");
 		} catch (err) {
-			res.status(404).send("Erro, não foi possivel criar o cliente");
+			res.status(404).json((err as Error).message);
 		}
 	};
 
@@ -64,7 +64,7 @@ export class CustomerController {
 
 			res.status(200).json("Cliente deletado com sucesso!");
 		} catch (err) {
-			res.status(404).send("Erro, não foi possível deletar o cliente");
+			res.status(404).json((err as Error).message);
 		}
 	};
 
@@ -78,7 +78,7 @@ export class CustomerController {
 
 			res.status(200).json("Cliente editado com sucesso!");
 		} catch (err) {
-			res.status(404).send("Erro, não foi possível editar o cliente");
+			res.status(404).json((err as Error).message);
 		}
 	};
 
@@ -94,7 +94,7 @@ export class CustomerController {
 
 			res.status(200).json(customer);
 		} catch (err) {
-			res.status(404).send("Erro, cliente não encontrado");
+			res.status(404).json((err as Error).message);
 		}
 	};
 
@@ -110,7 +110,7 @@ export class CustomerController {
 
 			res.status(200).json(customer as Customer);
 		} catch (err) {
-			res.status(404).send("Erro, email não encontrado");
+			res.status(404).json((err as Error).message);
 		}
 	};
 }
