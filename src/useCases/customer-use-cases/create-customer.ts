@@ -1,4 +1,4 @@
-import { ICustomerRepository } from "@repositories/icustomer-repository";
+import type { ICustomerRepository } from "@repositories/customer-repository";
 import { Customer } from "@domain/customer";
 
 import { customerSchema } from "@yup/customer-schema";

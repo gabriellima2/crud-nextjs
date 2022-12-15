@@ -1,5 +1,5 @@
 import { Customer } from "@domain/customer";
-import { ICustomerRepository } from "../icustomer-repository";
+import type { ICustomerRepository } from "./icustomer-repository";
 
 import { prismaClient } from "@services/prisma-client";
 

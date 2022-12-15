@@ -1,4 +1,4 @@
-import { ICustomerRepository } from "src/repositories/icustomer-repository";
+import type { ICustomerRepository } from "@repositories/customer-repository";
 
 export class FindByIDCustomer {
 	private repository: ICustomerRepository;

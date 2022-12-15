@@ -1,4 +1,4 @@
-import { ICustomerRepository } from "@repositories/icustomer-repository";
+import type { ICustomerRepository } from "@repositories/customer-repository";
 
 export class DeleteCustomer {
 	private repository: ICustomerRepository;

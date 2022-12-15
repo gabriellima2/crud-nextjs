@@ -1,4 +1,4 @@
-import { Customer } from "@domain/customer";
+import type { Customer } from "@domain/customer";
 
 export interface ICustomerRepository {
 	create: (customer: Omit<Customer, "id">) => Promise<void>;

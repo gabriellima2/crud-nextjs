@@ -1,4 +1,4 @@
-import { ICustomerRepository } from "@repositories/icustomer-repository";
+import type { ICustomerRepository } from "@repositories/customer-repository";
 import { customerEmailSchema } from "@yup/customer-schema";
 
 export class FindByEmailCustomer {

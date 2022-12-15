@@ -2,8 +2,10 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { Customer } from "@domain/customer";
 
-import { CustomerRepository } from "@repositories/implementation/customer-repository";
-import { ICustomerRepository } from "@repositories/icustomer-repository";
+import {
+	CustomerRepository,
+	ICustomerRepository,
+} from "@repositories/customer-repository";
 
 import {
 	LoadAllCustomer,
@@ -14,21 +16,12 @@ import {
 	FindByIDCustomer,
 } from "@use-cases/customer-use-cases";
 
-interface CreateCustomerApiRequest extends NextApiRequest {
-	body: { customer: Omit<Customer, "id"> };
-}
-
-interface CustomerApiRequest extends NextApiRequest {
-	body: { customer: Customer };
-}
-
-interface SpecificCustomerApiRequest extends NextApiRequest {
-	body: { id: number };
-}
-
-interface CustomerEmailApiRequest extends NextApiRequest {
-	body: { email: string };
-}
+import type {
+	CreateCustomerApiRequest,
+	CustomerApiRequest,
+	CustomerEmailApiRequest,
+	SpecificCustomerApiRequest,
+} from "./request-params";
 
 export class CustomerController {
 	private repository: ICustomerRepository;
