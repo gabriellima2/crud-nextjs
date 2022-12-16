@@ -5,12 +5,14 @@ import { Customers } from "@components/Customers";
 
 import type { Customer } from "@domain/customer";
 import { customerServices } from "@services/customer-services";
+import { Suspense } from "react";
+import { Loading } from "@components/Loading";
 
 interface HomeProps {
 	customers: Customer[] | [];
 }
 
-const Home: NextPage<HomeProps> = ({ customers }) => {
+const Home: NextPage<HomeProps> = () => {
 	return (
 		<div className="p-4 flex flex-col items-center">
 			<main className="w-full md:max-w-[800px] flex flex-col items-center">
@@ -20,7 +22,9 @@ const Home: NextPage<HomeProps> = ({ customers }) => {
 					<h2 className="font-medium text-base md:text-lg">
 						Detalhes dos Clientes
 					</h2>
-					<Customers customers={customers} />
+					<Suspense fallback={<Loading />}>
+						<Customers />
+					</Suspense>
 				</section>
 			</main>
 		</div>
@@ -28,9 +32,9 @@ const Home: NextPage<HomeProps> = ({ customers }) => {
 };
 
 export default Home;
-
+/*
 export const getStaticProps: GetStaticProps = async () => {
-	const customers = await customerServices.getCustomers();
+	const customers = await customerServices.load();
 
 	return {
 		props: {
@@ -39,3 +43,4 @@ export const getStaticProps: GetStaticProps = async () => {
 		revalidate: 20,
 	};
 };
+*/

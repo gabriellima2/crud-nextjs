@@ -1,13 +1,23 @@
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
-import type { Customer } from "@domain/customer";
+import { useCustomersContext } from "@contexts/CustomerContext";
 import { Button } from "./Button";
 
-interface CellProps extends Customer {
+import type { Customer as ICustomer } from "@domain/customer";
+
+interface CustomerProps extends ICustomer {
 	className?: string;
 }
 
-export const Cell = ({ id, name, email, zipCode, ...props }: CellProps) => {
+export const Customer = ({
+	id,
+	name,
+	email,
+	zipCode,
+	...props
+}: CustomerProps) => {
+	const { handleDelete } = useCustomersContext();
+
 	return (
 		<tr className={`${props.className} text-xs sm:text-sm md:text-base`}>
 			<td>{id}</td>
@@ -21,6 +31,7 @@ export const Cell = ({ id, name, email, zipCode, ...props }: CellProps) => {
 
 				<Button
 					title="Remover"
+					onClick={() => handleDelete(id)}
 					className="bg-red-500 text-white border-transparent"
 				>
 					<FaRegTrashAlt />

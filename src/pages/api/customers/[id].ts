@@ -1,17 +1,20 @@
 import type { NextApiResponse } from "next";
 
 import { CustomerController } from "@controllers/customer-controller";
-import type { FindByIDRequest } from "@protocols/customer-request-params";
+import type {
+	FindByIDRequest,
+	CustomerResponse,
+} from "@protocols/customer-protocols";
 
 export default async function handler(
 	req: FindByIDRequest,
-	res: NextApiResponse
+	res: NextApiResponse<CustomerResponse>
 ) {
 	const customerController = new CustomerController();
 	const { query } = req;
 
 	if (Array.isArray(query.id) || isNaN(Number(query.id)))
-		return res.status(404).send("Parâmetro inválido!");
+		return res.status(404).json({ data: [], message: "Parâmetro inválido!" });
 
 	if (req.method === "GET") return await customerController.findByID(req, res);
 
@@ -19,5 +22,5 @@ export default async function handler(
 
 	if (req.method === "PATCH") return await customerController.edit(req, res);
 
-	res.status(405).send("Método não suportado!");
+	res.status(405).json({ data: [], message: "Método não suportado!" });
 }

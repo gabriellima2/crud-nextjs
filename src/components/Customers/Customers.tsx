@@ -1,15 +1,12 @@
 import React from "react";
 
+import { useCustomersContext } from "@contexts/CustomerContext";
+
 import { Error } from "@components/Error";
 import { Table } from "./components";
 
-import type { Customer as ICustomer } from "@domain/customer";
-
-interface CustomersProps {
-	customers: ICustomer[] | [];
-}
-
-export const Customers = ({ customers }: CustomersProps) => {
+export const Customers = () => {
+	const { customers } = useCustomersContext();
 	const hasNoRegisteredCustomers = customers.length === 0;
 
 	return (

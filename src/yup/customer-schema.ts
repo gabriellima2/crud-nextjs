@@ -8,10 +8,7 @@ export const customerSchema = yup.object().shape({
 		.required("Preencha o campo email"),
 	zipCode: yup
 		.string()
-		.matches(
-			/^([\d]{2})\.?([\d]{3})-?([\d]{3})/,
-			"Por favor, digite um CEP válido"
-		)
+		.matches(/^([\d]{5})-?([\d]{3})/, "Por favor, digite um CEP válido")
 		.required("Preencha o campo CEP"),
 });
 

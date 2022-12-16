@@ -5,11 +5,12 @@ import { CustomerController } from "@controllers/customer-controller";
 import type {
 	CreateCustomerRequest,
 	FindByEmailRequest,
-} from "@protocols/customer-request-params";
+	CustomerResponse,
+} from "@protocols/customer-protocols";
 
 export default async function handler(
 	req: FindByEmailRequest & CreateCustomerRequest,
-	res: NextApiResponse
+	res: NextApiResponse<CustomerResponse>
 ) {
 	const customerController = new CustomerController();
 
@@ -21,5 +22,5 @@ export default async function handler(
 
 	if (req.method === "POST") return await customerController.create(req, res);
 
-	res.status(405).send("Método não suportado!");
+	res.status(405).json({ data: [], message: "Método não suportado" });
 }

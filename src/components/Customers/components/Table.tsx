@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Cell } from "./Cell";
+import { Customer } from "./Customer";
 import type { Customer as ICustomer } from "@domain/customer";
 
 interface TableProps {
@@ -21,7 +21,7 @@ export const Table = ({ customers }: TableProps) => {
 			</thead>
 			<tbody>
 				{customers.map((customer, index) => (
-					<Cell
+					<Customer
 						key={customer.id}
 						{...customer}
 						className={`${index % 2 === 0 && "bg-black/5"} `}
