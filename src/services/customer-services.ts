@@ -8,9 +8,11 @@ class CustomerServices {
 			});
 
 			if (!response.ok)
-				throw new Error("Erro, não foi possível pegar os dados!");
+				throw new Error("Erro, não foi possível deletar os dados!");
 		} catch (err) {
-			console.error(err || "Ocorreu um erro ao tentar deletar o cliente");
+			console.error(
+				(err as Error).message || "Ocorreu um erro ao tentar deletar o cliente"
+			);
 		}
 	}
 }
