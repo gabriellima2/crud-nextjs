@@ -8,6 +8,6 @@ export class DeleteCustomer {
 	}
 
 	execute = async (id: number) => {
-		await this.repository.delete(id);
+		return await this.repository.delete(id);
 	};
 }

@@ -19,6 +19,6 @@ export class CreateCustomer {
 		);
 		if (emailAlreadyExists) throw new Error("Email já existe!");
 
-		await this.repository.create(customer);
+		return await this.repository.create(customer);
 	};
 }

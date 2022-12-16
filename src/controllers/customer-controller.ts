@@ -49,11 +49,12 @@ export class CustomerController {
 		const createCustomerCase = new CreateCustomer(this.repository);
 
 		try {
-			await createCustomerCase.execute(customer);
+			const customerCreated = await createCustomerCase.execute(customer);
 
-			res
-				.status(200)
-				.json({ data: [], message: "Cliente criado com sucesso!" });
+			res.status(200).json({
+				data: [customerCreated],
+				message: "Cliente criado com sucesso!",
+			});
 		} catch (err) {
 			res.status(500).json({ data: [], message: (err as Error).message });
 		}
@@ -67,11 +68,12 @@ export class CustomerController {
 		const deleteCustomerCase = new DeleteCustomer(this.repository);
 
 		try {
-			await deleteCustomerCase.execute(Number(id));
+			const customerDeleted = await deleteCustomerCase.execute(Number(id));
 
-			res
-				.status(200)
-				.json({ data: [], message: "Cliente deletado com sucesso!" });
+			res.status(200).json({
+				data: [customerDeleted],
+				message: "Cliente deletado com sucesso!",
+			});
 		} catch (err) {
 			res.status(500).json({ data: [], message: (err as Error).message });
 		}
@@ -86,11 +88,15 @@ export class CustomerController {
 		const editCustomerCase = new EditCustomer(this.repository);
 
 		try {
-			await editCustomerCase.execute(Number(id), customer);
+			const customerEdited = await editCustomerCase.execute(
+				Number(id),
+				customer
+			);
 
-			res
-				.status(200)
-				.json({ data: [], message: "Cliente editado com sucesso!" });
+			res.status(200).json({
+				data: [customerEdited],
+				message: "Cliente editado com sucesso!",
+			});
 		} catch (err) {
 			res.status(500).json({ data: [], message: (err as Error).message });
 		}

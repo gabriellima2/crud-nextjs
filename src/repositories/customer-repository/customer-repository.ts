@@ -22,7 +22,7 @@ export class CustomerRepository implements ICustomerRepository {
 
 	create = async (customer: Omit<Customer, "id">) => {
 		try {
-			await this.repository.customer.create({ data: customer });
+			return await this.repository.customer.create({ data: customer });
 		} catch (err) {
 			throw new Error((err as Error).message);
 		} finally {
@@ -32,7 +32,7 @@ export class CustomerRepository implements ICustomerRepository {
 
 	delete = async (id: number) => {
 		try {
-			await this.repository.customer.delete({ where: { id } });
+			return await this.repository.customer.delete({ where: { id } });
 		} catch (err) {
 			throw new Error((err as Error).message);
 		} finally {
@@ -42,7 +42,7 @@ export class CustomerRepository implements ICustomerRepository {
 
 	edit = async (id: number, customer: Omit<Customer, "id">) => {
 		try {
-			await this.repository.customer.update({
+			return await this.repository.customer.update({
 				where: { id },
 				data: customer,
 			});

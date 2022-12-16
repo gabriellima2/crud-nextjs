@@ -18,6 +18,6 @@ export class EditCustomer {
 		if (customerEmail && customerEmail.id !== id)
 			throw new Error("Email já existe!");
 
-		this.repository.edit(id, customer);
+		return this.repository.edit(id, customer);
 	};
 }
