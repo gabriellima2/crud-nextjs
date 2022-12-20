@@ -1,11 +1,7 @@
 import type { NextApiRequest } from "next";
-import {
-	InputCreateCustomerDTO,
-	InputEditCustomerDTO,
-} from "@dtos/customer-dto";
 
 export interface CreateCustomerRequest extends NextApiRequest {
-	body: InputCreateCustomerDTO;
+	body: string;
 }
 
 export interface FindByIDRequest extends NextApiRequest {
@@ -21,7 +17,7 @@ export interface SpecificCustomerRequest extends NextApiRequest {
 }
 
 export interface EditCustomerRequest extends NextApiRequest {
-	body: InputEditCustomerDTO;
+	body: string;
 	query: {
 		id: string;
 	};

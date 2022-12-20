@@ -1,10 +1,13 @@
 import { SubmitHandler } from "react-hook-form";
 
+import { useCustomersContext } from "@contexts/CustomerContext";
+
 import { BaseForm } from "@components/BaseForm";
 
 import { customerSchema } from "@yup/customer-schema";
 
 import type { CustomerFields } from "@global-types/CustomerFields";
+import type { InputCreateCustomerDTO } from "@dtos/customer-dto";
 import type { Input } from "@global-types/Input";
 
 const fields: Input<CustomerFields>[] = [
@@ -35,8 +38,12 @@ const fields: Input<CustomerFields>[] = [
 ];
 
 export const CustomerForm = () => {
-	const handleSubmit: SubmitHandler<CustomerFields> = (data) => {
-		console.log(data);
+	const { handleCreate } = useCustomersContext();
+
+	const handleSubmit: SubmitHandler<CustomerFields> = async (data) => {
+		if (Object.values(data).some((value) => value === "")) return;
+
+		await handleCreate(data as unknown as InputCreateCustomerDTO);
 	};
 
 	return (

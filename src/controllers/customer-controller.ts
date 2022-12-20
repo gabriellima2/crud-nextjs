@@ -50,7 +50,9 @@ export class CustomerController {
 		const createCustomerCase = new CreateCustomer(this.repository);
 
 		try {
-			const customerCreated = await createCustomerCase.execute(customer);
+			const customerCreated = await createCustomerCase.execute(
+				JSON.parse(customer)
+			);
 
 			res.status(201).json({
 				data: [customerCreated],
@@ -91,7 +93,7 @@ export class CustomerController {
 		try {
 			const customerEdited = await editCustomerCase.execute(
 				Number(id),
-				customer
+				JSON.parse(customer)
 			);
 
 			res.status(200).json({
