@@ -3,9 +3,9 @@ import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 import { useCustomersContext } from "@contexts/CustomerContext";
 import { Button } from "./Button";
 
-import type { Customer as ICustomer } from "@domain/customer";
+import type { OutputCustomerDTO } from "@dtos/customer-dto";
 
-interface CustomerProps extends ICustomer {
+interface CustomerProps extends OutputCustomerDTO {
 	className?: string;
 }
 

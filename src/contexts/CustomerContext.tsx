@@ -2,11 +2,11 @@ import { createContext, ReactNode, useContext } from "react";
 
 import { useCustomers } from "@hooks/useCustomers";
 
-import type { Customer } from "@domain/customer";
 import { customerServices } from "@services/customer-services";
+import type { OutputCustomerDTO } from "@dtos/customer-dto";
 
 interface CustomerContextProperties {
-	customers: Customer[] | [];
+	customers: OutputCustomerDTO[] | [];
 	handleDelete: (id: number) => void;
 }
 

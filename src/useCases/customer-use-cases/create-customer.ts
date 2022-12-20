@@ -1,7 +1,7 @@
 import { customerSchema } from "@yup/customer-schema";
 
 import type { ICustomerRepository } from "@repositories/customer-repository";
-import type { Customer } from "@domain/customer";
+import type { InputCreateCustomerDTO } from "@dtos/customer-dto";
 
 export class CreateCustomer {
 	private repository: ICustomerRepository;
@@ -10,7 +10,7 @@ export class CreateCustomer {
 		this.repository = repository;
 	}
 
-	execute = async (customer: Omit<Customer, "id">) => {
+	execute = async (customer: InputCreateCustomerDTO) => {
 		const customerDataIsValid = await customerSchema.isValid(customer);
 		if (!customerDataIsValid) throw new Error("Dados inválidos");
 

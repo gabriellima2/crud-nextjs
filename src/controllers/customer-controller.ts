@@ -18,8 +18,9 @@ import type {
 	CreateCustomerRequest,
 	FindByEmailRequest,
 	FindByIDRequest,
-	HandleCustomerRequest,
+	EditCustomerRequest,
 	CustomerResponse,
+	SpecificCustomerRequest,
 } from "@protocols/customer-protocols";
 
 export class CustomerController {
@@ -51,7 +52,7 @@ export class CustomerController {
 		try {
 			const customerCreated = await createCustomerCase.execute(customer);
 
-			res.status(200).json({
+			res.status(201).json({
 				data: [customerCreated],
 				message: "Cliente criado com sucesso!",
 			});
@@ -61,7 +62,7 @@ export class CustomerController {
 	};
 
 	delete = async (
-		req: HandleCustomerRequest,
+		req: SpecificCustomerRequest,
 		res: NextApiResponse<CustomerResponse>
 	) => {
 		const { id } = req.query;
@@ -80,7 +81,7 @@ export class CustomerController {
 	};
 
 	edit = async (
-		req: HandleCustomerRequest,
+		req: EditCustomerRequest,
 		res: NextApiResponse<CustomerResponse>
 	) => {
 		const { id } = req.query;

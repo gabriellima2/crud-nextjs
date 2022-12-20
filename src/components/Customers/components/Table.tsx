@@ -1,10 +1,10 @@
 import React from "react";
 
 import { Customer } from "./Customer";
-import type { Customer as ICustomer } from "@domain/customer";
+import type { OutputCustomerDTO } from "@dtos/customer-dto";
 
 interface TableProps {
-	customers: ICustomer[];
+	customers: OutputCustomerDTO[];
 }
 
 export const Table = ({ customers }: TableProps) => {

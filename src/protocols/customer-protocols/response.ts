@@ -1,6 +1,6 @@
-import { Customer } from "@domain/customer";
+import type { OutputCustomerDTO } from "@dtos/customer-dto";
 
 export interface CustomerResponse {
-	data: Customer[] | [];
+	data: OutputCustomerDTO[] | [];
 	message?: string | null;
 }

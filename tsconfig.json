@@ -21,7 +21,7 @@
 			"@global-types/*": ["./src/@types/*"],
 			"@yup/*": ["./src/yup/*"],
 			"@repositories/*": ["./src/repositories/*"],
-			"@domain/*": ["./src/domain/*"],
+			"@dtos/*": ["./src/dtos/*"],
 			"@controllers/*": ["./src/controllers/*"],
 			"@use-cases/*": ["./src/useCases/*"],
 			"@services/*": ["./src/services/*"],

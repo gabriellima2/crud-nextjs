@@ -1,15 +1,14 @@
-import type { GetStaticProps, NextPage } from "next";
-
-import { Header } from "@components/Header";
-import { Customers } from "@components/Customers";
-
-import type { Customer } from "@domain/customer";
-import { customerServices } from "@services/customer-services";
 import { Suspense } from "react";
+import type { NextPage } from "next";
+
+import { Customers } from "@components/Customers";
 import { Loading } from "@components/Loading";
+import { Header } from "@components/Header";
+
+import type { OutputCustomerDTO } from "@dtos/customer-dto";
 
 interface HomeProps {
-	customers: Customer[] | [];
+	customers: OutputCustomerDTO[] | [];
 }
 
 const Home: NextPage<HomeProps> = () => {
@@ -32,15 +31,3 @@ const Home: NextPage<HomeProps> = () => {
 };
 
 export default Home;
-/*
-export const getStaticProps: GetStaticProps = async () => {
-	const customers = await customerServices.load();
-
-	return {
-		props: {
-			customers,
-		},
-		revalidate: 20,
-	};
-};
-*/

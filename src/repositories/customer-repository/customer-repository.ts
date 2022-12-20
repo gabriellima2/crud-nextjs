@@ -1,7 +1,10 @@
 import { prismaClient } from "@services/prisma-client";
 
-import type { Customer } from "@domain/customer";
 import type { ICustomerRepository } from "./icustomer-repository";
+import type {
+	InputCreateCustomerDTO,
+	InputEditCustomerDTO,
+} from "@dtos/customer-dto";
 
 export class CustomerRepository implements ICustomerRepository {
 	private repository: typeof prismaClient;
@@ -20,7 +23,7 @@ export class CustomerRepository implements ICustomerRepository {
 		}
 	};
 
-	create = async (customer: Omit<Customer, "id">) => {
+	create = async (customer: InputCreateCustomerDTO) => {
 		try {
 			return await this.repository.customer.create({ data: customer });
 		} catch (err) {
@@ -40,7 +43,7 @@ export class CustomerRepository implements ICustomerRepository {
 		}
 	};
 
-	edit = async (id: number, customer: Omit<Customer, "id">) => {
+	edit = async (id: number, customer: InputEditCustomerDTO) => {
 		try {
 			return await this.repository.customer.update({
 				where: { id },
