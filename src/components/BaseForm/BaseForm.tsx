@@ -1,20 +1,27 @@
-import type { FormHTMLAttributes } from "react";
+import { FormHTMLAttributes, useEffect } from "react";
+import { DeepPartial, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { AnyObjectSchema } from "yup";
-import { useForm } from "react-hook-form";
 
 import { MainButton, MainButtonProps } from "@components/Button";
 import { Field } from "./components";
 
 import type { Input } from "@global-types/Input";
 
-type FormAttributes = Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit">;
+type FormAttributes = Omit<
+	FormHTMLAttributes<HTMLFormElement>,
+	"onSubmit" | "defaultValue"
+>;
 
 interface BaseFormProps<TFormFields> extends FormAttributes {
 	onSubmit: (data: TFormFields) => void;
 	button: Omit<MainButtonProps, "type">;
 	validationSchema: AnyObjectSchema;
-	fields: { className?: string; items: Input<TFormFields>[] };
+	fields: {
+		className?: string;
+		items: Input<TFormFields>[];
+		defaultValues: DeepPartial<TFormFields>;
+	};
 }
 
 export const BaseForm = <TFormFields extends {}>({
@@ -25,16 +32,24 @@ export const BaseForm = <TFormFields extends {}>({
 	...props
 }: BaseFormProps<TFormFields>) => {
 	const resolver = yupResolver(validationSchema);
-	const { handleSubmit, control } = useForm<TFormFields>({
+	const { handleSubmit, control, reset } = useForm<TFormFields>({
 		resolver,
-		mode: "onChange",
+		defaultValues: fields.defaultValues,
 	});
 
+	useEffect(() => reset({ ...fields.defaultValues }), [fields.defaultValues]);
+
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} {...props}>
+		<form
+			onSubmit={handleSubmit((data) => {
+				onSubmit(data);
+				reset();
+			})}
+			{...props}
+		>
 			<div className={fields.className}>
 				{fields.items.map((field, index) => (
-					<Field key={index} {...field} control={control} />
+					<Field key={index} control={control} {...field} />
 				))}
 			</div>
 

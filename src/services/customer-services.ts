@@ -1,5 +1,8 @@
 import { BASE_URL } from "@constants/BASE_URL";
-import type { InputCreateCustomerDTO } from "@dtos/customer-dto";
+import type {
+	InputCreateCustomerDTO,
+	InputEditCustomerDTO,
+} from "@dtos/customer-dto";
 
 class CustomerServices {
 	public async delete(id: number): Promise<void> {
@@ -29,6 +32,22 @@ class CustomerServices {
 		} catch (err) {
 			console.error(
 				(err as Error).message || "Ocorreu um erro ao criar o cliente"
+			);
+		}
+	}
+
+	public async edit(customer: InputEditCustomerDTO) {
+		try {
+			const response = await fetch(`${BASE_URL}/api/customers/${customer.id}`, {
+				method: "PATCH",
+				body: JSON.stringify(customer),
+			});
+
+			if (!response.ok)
+				throw new Error("Erro, não foi possível editar o cliente!");
+		} catch (err) {
+			console.error(
+				(err as Error).message || "Ocorreu um erro ao editar o cliente"
 			);
 		}
 	}

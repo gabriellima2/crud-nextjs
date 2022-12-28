@@ -1,5 +1,8 @@
-import { useController, UseControllerProps } from "react-hook-form";
-import type { FieldValues } from "react-hook-form";
+import {
+	useController,
+	UseControllerProps,
+	FieldValues,
+} from "react-hook-form";
 
 import { Error } from "@components/Error";
 import { Label } from "@components/Label";
@@ -8,18 +11,19 @@ import { Input } from "@components/Input";
 import type { Input as InputType } from "@global-types/Input";
 
 export interface FieldProps<TField extends FieldValues>
-	extends UseControllerProps<TField>,
-		Omit<InputType<TField>, "defaultValue"> {}
+	extends Pick<UseControllerProps<TField>, "name" | "control">,
+		InputType<TField> {}
 
-export const Field = <TField extends {}>({
+export const Field = <TField extends FieldValues>({
 	label,
-	placeholder,
-	className,
-	type,
-	id,
+	control,
+	name,
 	...props
 }: FieldProps<TField>) => {
-	const { field, fieldState } = useController(props);
+	const { field, fieldState } = useController({
+		control,
+		name,
+	});
 
 	const hasError = !!fieldState.error;
 
@@ -28,11 +32,11 @@ export const Field = <TField extends {}>({
 			<Label className="flex flex-col gap-1 md:gap-0">
 				{label}
 				<Input
-					type={type}
-					id={id}
-					placeholder={placeholder}
-					className={className}
-					{...field}
+					{...props}
+					name={field.name}
+					value={field.value}
+					onBlur={field.onBlur}
+					onChange={field.onChange}
 				/>
 			</Label>
 

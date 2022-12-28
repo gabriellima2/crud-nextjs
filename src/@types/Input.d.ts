@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes } from "react";
-import type { Path, PathValue } from "react-hook-form";
+import type { Path } from "react-hook-form";
 
 type DefaultAttr = Pick<
 	InputHTMLAttributes<HTMLInputElement>,
@@ -9,5 +9,4 @@ type DefaultAttr = Pick<
 export interface Input<TField = {}> extends DefaultAttr {
 	label: string;
 	name: Path<TField>;
-	defaultValue: PathValue<TField, Path<TField>>;
 }

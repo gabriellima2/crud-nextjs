@@ -1,7 +1,5 @@
-import type { Input } from "./Input";
-
 export interface CustomerFields {
-	name: Input;
-	email: Input;
-	zipCode: Input;
+	name: string;
+	email: string;
+	zipCode: string;
 }

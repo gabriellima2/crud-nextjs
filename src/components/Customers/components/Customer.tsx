@@ -16,7 +16,7 @@ export const Customer = ({
 	zipCode,
 	...props
 }: CustomerProps) => {
-	const { handleDelete } = useCustomersContext();
+	const { handleDelete, fillClientStateToEdit } = useCustomersContext();
 
 	return (
 		<tr className={`${props.className} text-xs sm:text-sm md:text-base`}>
@@ -25,7 +25,11 @@ export const Customer = ({
 			<td>{email}</td>
 			<td>{zipCode}</td>
 			<td className="flex gap-2 flex-wrap">
-				<Button title="Editar" className="bg-white  border-black/10">
+				<Button
+					title="Editar"
+					onClick={() => fillClientStateToEdit({ id, name, email, zipCode })}
+					className="bg-white  border-black/10"
+				>
 					<FaPencilAlt />
 				</Button>
 
