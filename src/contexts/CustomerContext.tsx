@@ -8,6 +8,7 @@ import type {
 	InputEditCustomerDTO,
 	OutputCustomerDTO,
 } from "@dtos/customer-dto";
+import { useToastContext } from "./ToastContext";
 
 interface CustomerContextProperties {
 	customers: OutputCustomerDTO[] | [];
@@ -24,21 +25,24 @@ export const CustomerContextProvider = (props: { children: ReactNode }) => {
 	const [customerToEdit, setCustomerToEdit] =
 		useState<null | OutputCustomerDTO>(null);
 	const { customers, mutate } = useCustomers();
+	const { showToast } = useToastContext();
 
 	const handleCreate = async (customer: InputCreateCustomerDTO) => {
-		await customerServices.create(customer);
+		const message = await customerServices.create(customer);
 		mutate();
+		showToast(message);
 	};
 
 	const handleDelete = async (id: number) => {
-		await customerServices.delete(id);
+		const message = await customerServices.delete(id);
 		mutate();
+		showToast(message);
 	};
 
 	const handleEdit = async (customer: InputEditCustomerDTO) => {
-		await customerServices.edit(customer);
+		const message = await customerServices.edit(customer);
 		mutate();
-
+		showToast(message);
 		setCustomerToEdit(null);
 	};
 

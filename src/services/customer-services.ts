@@ -3,52 +3,65 @@ import type {
 	InputCreateCustomerDTO,
 	InputEditCustomerDTO,
 } from "@dtos/customer-dto";
+import type { CustomerResponse } from "@protocols/customer-protocols";
 
 class CustomerServices {
-	public async delete(id: number): Promise<void> {
+	public async delete(id: number): Promise<string> {
+		const defaultErrorMessage = "Erro, não foi possível deletar o cliente!";
 		try {
 			const response = await fetch(`${BASE_URL}/api/customers/${id}`, {
 				method: "DELETE",
 			});
+			const data: CustomerResponse = await response.json();
 
-			if (!response.ok)
-				throw new Error("Erro, não foi possível deletar os dados!");
+			if (data.message && !response.ok) throw new Error(data.message);
+			if (!response.ok) throw new Error(defaultErrorMessage);
+
+			return data.message || "Cliente deletado com sucesso!";
 		} catch (err) {
-			console.error(
-				(err as Error).message || "Ocorreu um erro ao tentar deletar o cliente"
-			);
+			const errorMessage = (err as Error).message || defaultErrorMessage;
+			console.error(errorMessage);
+			return errorMessage;
 		}
 	}
 
-	public async create(customer: InputCreateCustomerDTO) {
+	public async create(customer: InputCreateCustomerDTO): Promise<string> {
+		const defaultErrorMessage = "Erro, não foi possível criar o cliente!";
 		try {
 			const response = await fetch(`${BASE_URL}/api/customers`, {
 				method: "POST",
 				body: JSON.stringify(customer),
 			});
+			const data: CustomerResponse = await response.json();
 
-			if (!response.ok)
-				throw new Error("Erro, não foi possível criar o cliente!");
+			if (data.message && !response.ok) throw new Error(data.message);
+			if (!response.ok) throw new Error(defaultErrorMessage);
+
+			return data.message || "Cliente criado com sucesso!";
 		} catch (err) {
-			console.error(
-				(err as Error).message || "Ocorreu um erro ao criar o cliente"
-			);
+			const errorMessage = (err as Error).message || defaultErrorMessage;
+			console.error(errorMessage);
+			return errorMessage;
 		}
 	}
 
-	public async edit(customer: InputEditCustomerDTO) {
+	public async edit(customer: InputEditCustomerDTO): Promise<string> {
+		const defaultErrorMessage = "Erro, não foi possível editar o cliente!";
 		try {
 			const response = await fetch(`${BASE_URL}/api/customers/${customer.id}`, {
 				method: "PATCH",
 				body: JSON.stringify(customer),
 			});
+			const data: CustomerResponse = await response.json();
 
-			if (!response.ok)
-				throw new Error("Erro, não foi possível editar o cliente!");
+			if (data.message && !response.ok) throw new Error(data.message);
+			if (!response.ok) throw new Error(defaultErrorMessage);
+
+			return data.message || "Cliente editado com sucesso!";
 		} catch (err) {
-			console.error(
-				(err as Error).message || "Ocorreu um erro ao editar o cliente"
-			);
+			const errorMessage = (err as Error).message || defaultErrorMessage;
+			console.error(errorMessage);
+			return errorMessage;
 		}
 	}
 }
