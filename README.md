@@ -17,7 +17,7 @@ Criar um projeto Full-stack, aproveitando para praticar NodeJS. Foquei em aplica
 - Criar e manusear banco de dados com Prisma.
 - Fortaleci os conhecimentos em métodos HTTP.
 
-<h2>Tecnologias:</h2>
+<h2>Ferramentas:</h2>
 
 - [NextJS](https://nextjs.org/)
 - [Typescript](https://www.typescriptlang.org/)
@@ -26,6 +26,7 @@ Criar um projeto Full-stack, aproveitando para praticar NodeJS. Foquei em aplica
 - [YUP](https://github.com/jquense/yup)
 - [SWR](https://swr.vercel.app/pt-BR)
 - [Prisma](https://www.prisma.io/learn)
+- [React-Toastify](https://fkhadra.github.io/react-toastify/introduction)
 
 <h2>Rodando o projeto:</h2>
 
